@@ -36,6 +36,9 @@ target=$(echo $pw | sudo -S xxd -l 240 -ps -u kcpassword)
 mn=7D895223D2BCDDEAA3B91F7D
 
 # XOR Function
+# Obtained from here:
+# http://www.codeproject.com/Tips/470308/XOR-Hex-Strings-in-Linux-Shell-Script
+# Author is Sanjay1982 (see http://www.codeproject.com/Members/Sanjay1982)
 function  xor()
 {
 	local res=(`echo "$1" | sed "s/../0x& /g"`)
