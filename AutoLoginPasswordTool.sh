@@ -25,6 +25,8 @@ echo ""
 echo "Navigate to /Volumes/DRIVE_NAME/private/etc"
 echo "Run script!"
 echo ""
+read -p "Where is the kcpassword file? Specify /Volumes/name/private/etc " path
+cd "$path"
 
 # Obtain Basic Information
 uname=$(whoami)
