@@ -34,9 +34,7 @@ echo ""
 # Get Values For XOR
 target=$(echo $pw | sudo -S xxd -l 240 -ps -u kcpassword)
 mn=7D895223D2BCDDEAA3B91F7D
-echo ""
-sudo -S xxd -l 240 -ps -u kcpassword
-read -p "Match kcpassword string lenght using: 7D895223D2BCDDEAA3B91F7D. " mnl
+mnl=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
 
 # XOR Function
 # Obtained from here:
