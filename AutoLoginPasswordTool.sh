@@ -33,8 +33,7 @@ echo ""
 
 # Get Values For XOR
 target=$(echo $pw | sudo -S xxd -l 240 -ps -u kcpassword)
-mn=7D895223D2BCDDEAA3B91F7D
-mnl=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
+mn=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
 
 # XOR Function
 # Obtained from here:
@@ -62,12 +61,8 @@ function  xor()
 
 # Obtain HEX Password And Convert To ASCII
 recpw=$(xor $target $mn | xxd -r -p)
-recpwl=$(xor $target $mnl | xxd -r -p)
 
 echo "Here is your password (SHORT)."
 echo $recpw
-echo ""
-echo "Here is your password (LONG)."
-echo $recpwl
 
 exit
