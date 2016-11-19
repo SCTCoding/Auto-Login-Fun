@@ -22,9 +22,6 @@
 
 echo "THIS SCRIPT WILL RECOVER PASSWORDS FROM AUTOLOGIN"
 echo ""
-echo "Navigate to /Volumes/DRIVE_NAME/private/etc"
-echo "Run script!"
-echo ""
 
 # Obtain Basic Information
 uname=$(whoami)
