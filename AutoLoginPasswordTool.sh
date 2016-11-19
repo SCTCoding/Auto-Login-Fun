@@ -30,6 +30,10 @@ echo ""
 uname=$(whoami)
 read -p "What is the password for $uname? " pw
 echo ""
+read -p "Where is the password to recover? " path
+cd "$path"
+pwd
+echo ""
 
 # Get Values For XOR
 target=$(echo $pw | sudo -S xxd -l 240 -ps -u kcpassword)
@@ -62,7 +66,7 @@ function  xor()
 # Obtain HEX Password And Convert To ASCII
 recpw=$(xor $target $mn | xxd -r -p)
 
-echo "Here is your password (SHORT)."
+echo "Here is your password."
 echo $recpw
 
 exit
