@@ -27,7 +27,7 @@ echo ""
 uname=$(whoami)
 read -p "What is the password for $uname? " pw
 echo ""
-read -p "Where is the password to recover? " path
+read -p "Where is the password to recover? Typical Path: /Volumes/Macintosh\ HD/private/etc/ " path
 cd "$path"
 pwd
 echo ""
