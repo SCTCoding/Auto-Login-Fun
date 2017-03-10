@@ -61,7 +61,8 @@ function  xor()
 }
 
 # Obtain HEX Password And Convert To ASCII
-recpw=$(xor $target $mn | xxd -r -p)
+#recpw=$(xor $target $mn | xxd -r -p)
+recpw=$(xor $target $mn | sed 's/0067.*//' | xxd -r -p)
 
 echo "Here is your password."
 echo $recpw
