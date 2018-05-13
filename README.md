@@ -6,3 +6,6 @@ This project is super useful for those people who don't seem to use their passwo
 
 ## Usage
 Run the script from an admin account. Provide the path to the kcpassword file. Provide the password for the admin user you are using. Run the script!
+
+## The .zip file
+This is an automator application that runs a modified version of the script with AppleScript dialogs. Simple little appification of the script. It recovers nice long auto login passwords.
