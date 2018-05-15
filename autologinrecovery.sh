@@ -21,46 +21,44 @@
 #DAMAGE.
 
 
-
-
-if [ $1 = 0 ]
+if [ -z $1 ]
 then
 	echo "Usage: autologinrecovery.sh [path to kcpassword file]"
 	exit
 else
-# Get Values For XOR
-target=$(sudo xxd -l 240 -ps -u "$1")
-mn=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
+	# Get Values For XOR
+	target=$(sudo xxd -l 240 -ps -u "$1")
+	mn=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
 
-# XOR Function
-# Obtained from here:
-# http://www.codeproject.com/Tips/470308/XOR-Hex-Strings-in-Linux-Shell-Script
-# Author is Sanjay1982 (see http://www.codeproject.com/Members/Sanjay1982)
-function  xor()
-{
-	local res=(`echo "$1" | sed "s/../0x& /g"`)
-	shift 1
-	while [[ "$1" ]]; do
-	    local one=(`echo "$1" | sed "s/../0x& /g"`)
-	    local count1=${#res[@]}
-	    if [ $count1 -lt ${#one[@]} ]
-	    then
-	          count1=${#one[@]}
-	    fi
-	    for (( i = 0; i < $count1; i++ ))
-	    do
-	          res[$i]=$((${one[$i]:-0} ^ ${res[$i]:-0}))
-	    done
-	    shift 1
-	done
-	printf "%02x" "${res[@]}"
-}
+	# XOR Function
+	# Obtained from here:
+	# http://www.codeproject.com/Tips/470308/XOR-Hex-Strings-in-Linux-Shell-Script
+	# Author is Sanjay1982 (see http://www.codeproject.com/Members/Sanjay1982)
+	function  xor()
+	{
+		local res=(`echo "$1" | sed "s/../0x& /g"`)
+		shift 1
+		while [[ "$1" ]]; do
+	    	local one=(`echo "$1" | sed "s/../0x& /g"`)
+		    local count1=${#res[@]}
+		    if [ $count1 -lt ${#one[@]} ]
+	    	then
+	        	  count1=${#one[@]}
+		    fi
+		    for (( i = 0; i < $count1; i++ ))
+	    	do
+	        	  res[$i]=$((${one[$i]:-0} ^ ${res[$i]:-0}))
+	    	done
+		    shift 1
+		done
+		printf "%02x" "${res[@]}"
+	}
 
-# Obtain HEX Password And Convert To ASCII
-recpw=$(xor $target $mn | sed 's/0067.*//' | xxd -r -p)
+	# Obtain HEX Password And Convert To ASCII
+	recpw=$(xor $target $mn | sed 's/0067.*//' | xxd -r -p)
 
-# Value Returned
-osascript -e 'tell app "System Events" to display dialog "Password Recovered: '$recpw'" buttons {"OK"} default button "OK"'
+	# Value Returned
+	osascript -e 'tell app "System Events" to display dialog "Password Recovered: '$recpw'" buttons {"OK"} default button "OK"'
 
-exit
+	exit
 fi
