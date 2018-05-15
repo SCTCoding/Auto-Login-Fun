@@ -21,8 +21,13 @@
 #DAMAGE.
 
 
-echo "Usage: autologinrecovery.sh [path to kcpassword file]"
 
+
+if [ $1 = 0 ]
+then
+	echo "Usage: autologinrecovery.sh [path to kcpassword file]"
+	exit
+else
 # Get Values For XOR
 target=$(sudo xxd -l 240 -ps -u "$1")
 mn=7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F7D895223D2BCDDEAA3B91F
@@ -58,3 +63,4 @@ recpw=$(xor $target $mn | sed 's/0067.*//' | xxd -r -p)
 osascript -e 'tell app "System Events" to display dialog "Password Recovered: '$recpw'" buttons {"OK"} default button "OK"'
 
 exit
+fi
